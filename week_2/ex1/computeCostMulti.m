@@ -13,10 +13,14 @@ J = 0;
 % Instructions: Compute the cost of a particular choice of theta
 %               You should set J to the cost.
 
+% Compute the difference matrix between h(x) and y
+diff = X*theta - y;
 
+% Square the difference matrix in place
+sqdiff = diff .^ 2;
 
-
-
+% Finish the cost function calculation
+J = sum(sqdiff) / (2 * m);
 % =========================================================================
 
 end
