@@ -16,12 +16,13 @@ for iter = 1:num_iters
     % Hint: While debugging, it can be useful to print out the values
     %       of the cost function (computeCost) and gradient here.
     %
+    
+    % Compute the difference matrix between h(x) and y
+    temp0 = theta(1,1) - alpha * sum(X*theta - y)/m;
+    temp1 = theta(2,1) - alpha * sum((X*theta - y).*X(:,2))/m;
 
-
-
-
-
-
+    theta(1,1) = temp0;
+    theta(2,1) = temp1;
 
     % ============================================================
 
