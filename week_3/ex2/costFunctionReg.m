@@ -17,11 +17,15 @@ grad = zeros(size(theta));
 %               Compute the partial derivatives and set grad to the partial
 %               derivatives of the cost w.r.t. each parameter in theta
 
+% Start with the non-regularized parameters
+[J, grad] = costFunction(theta, X, y);
 
+% Add the lambda 
+theta(1,1) = 0;
+J = J + theta'*theta*lambda/(2*m);
 
-
-
-
+% Modify the gradient values (skip the first theta value)
+grad = grad + theta*lambda/m;
 % =============================================================
 
 end

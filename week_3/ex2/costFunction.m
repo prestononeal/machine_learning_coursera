@@ -20,14 +20,9 @@ temp = zeros(length(theta), 1);  % store the gradients for each theta
 %
 % Note: grad should have the same dimensions as theta
 %
-J = (-y'*log(sigmoid(X*theta)) - (1 - y')*log(1-sigmoid(X*theta)))/m;
-
-for this_theta = 1:length(theta)
-    % Compute the difference matrix between h(x) and y
-    temp(this_theta, 1) = ((sigmoid(X*theta) - y)'*X(:,this_theta))/m;
-end
-
-grad = temp;
+h = sigmoid(X*theta);
+J = (-y'*log(h) - (1 - y')*log(1-h))/m;
+grad = X'*(h-y)/m;
 % =============================================================
 
 end
