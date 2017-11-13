@@ -19,7 +19,7 @@ for iter = 1:num_iters
     %
     for this_theta = 1:length(theta)
         % Compute the difference matrix between h(x) and y
-        temp(this_theta, 1) = theta(this_theta, 1) - alpha * sum((X*theta - y).*X(:,this_theta))/m;
+        temp(this_theta, 1) = theta(this_theta, 1) - alpha * ((X*theta - y)'*X(:,this_theta))/m;
     end
 
     theta = temp;

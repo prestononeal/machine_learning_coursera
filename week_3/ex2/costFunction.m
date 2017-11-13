@@ -10,6 +10,7 @@ m = length(y); % number of training examples
 % You need to return the following variables correctly 
 J = 0;
 grad = zeros(size(theta));
+temp = zeros(length(theta), 1);  % store the gradients for each theta
 
 % ====================== YOUR CODE HERE ======================
 % Instructions: Compute the cost of a particular choice of theta.
@@ -19,14 +20,14 @@ grad = zeros(size(theta));
 %
 % Note: grad should have the same dimensions as theta
 %
+J = (-y'*log(sigmoid(X*theta)) - (1 - y')*log(1-sigmoid(X*theta)))/m;
 
+for this_theta = 1:length(theta)
+    % Compute the difference matrix between h(x) and y
+    temp(this_theta, 1) = ((sigmoid(X*theta) - y)'*X(:,this_theta))/m;
+end
 
-
-
-
-
-
-
+grad = temp;
 % =============================================================
 
 end
