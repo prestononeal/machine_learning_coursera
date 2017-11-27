@@ -36,15 +36,17 @@ grad = zeros(size(theta));
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
 
+% Start with the non-regularized parameters
+h = sigmoid(X*theta);
+J = (-y'*log(h) - (1 - y')*log(1-h))/m;
+grad = X'*(h-y)/m;
 
+% Add the lambda
+theta(1,1) = 0;
+J = J + theta'*theta*lambda/(2*m);
 
-
-
-
-
-
-
-
+% Modify the gradient values (skip the first theta value)
+grad = grad + theta*lambda/m;
 % =============================================================
 
 grad = grad(:);
