@@ -79,13 +79,23 @@ J = sum(sum((-y_matrix.*log(h) - (1 - y_matrix).*log(1-h))/m));
 theta_r = sum(sum(Theta1(:, 2:end).^2)) + sum(sum(Theta2(:, 2:end).^2));
 J = J + (lambda*theta_r)/(2*m);
 
-% Calculate deltas
+% Calculate deltas and the gradient
 d3 = a3 - y_matrix;
 d2 = d3 * (Theta2(:, 2:end)) .* sigmoidGradient(z2);
 Delta1 = d2' * a1;
 Delta2 = d3' * a2;
 Theta1_grad = Delta1/m;
 Theta2_grad = Delta2/m;
+
+% Regularize the gradient
+% Modify the Theta variables to make the gradient regularization easy
+% to compute
+Theta1(:, 1) = 0;
+Theta2(:, 1) = 0;
+Theta1 = Theta1*lambda/m;
+Theta2 = Theta2*lambda/m;
+Theta1_grad = Theta1_grad + Theta1;
+Theta2_grad = Theta2_grad + Theta2;
 
 % -------------------------------------------------------------
 
