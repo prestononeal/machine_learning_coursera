@@ -61,25 +61,19 @@ Theta2_grad = zeros(size(Theta2));
 %               the regularization separately and then add them to Theta1_grad
 %               and Theta2_grad from Part 2.
 %
+eye_matrix = eye(num_labels);
+y_matrix = eye_matrix(y,:);
 
+a1 = [ones(m, 1) X];
 
+z2 = a1 * Theta1';
+a2 = [ones(m, 1) sigmoid(z2)];  % We need to add the bias unit here
 
+z3 = a2 * Theta2';
+a3 = sigmoid(z3);  % But we don't need the bias unit here
+h = a3;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+J = sum(sum((-y_matrix.*log(h) - (1 - y_matrix).*log(1-h))/m));
 % -------------------------------------------------------------
 
 % =========================================================================
