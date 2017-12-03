@@ -74,6 +74,10 @@ a3 = sigmoid(z3);  % But we don't need the bias unit here
 h = a3;
 
 J = sum(sum((-y_matrix.*log(h) - (1 - y_matrix).*log(1-h))/m));
+
+% Add the regularization component
+theta_r = sum(sum(Theta1(:, 2:end).^2)) + sum(sum(Theta2(:, 2:end).^2));
+J = J + (lambda*theta_r)/(2*m);
 % -------------------------------------------------------------
 
 % =========================================================================
