@@ -64,20 +64,29 @@ Theta2_grad = zeros(size(Theta2));
 eye_matrix = eye(num_labels);
 y_matrix = eye_matrix(y,:);
 
+% Perform forward propagation 
 a1 = [ones(m, 1) X];
-
 z2 = a1 * Theta1';
 a2 = [ones(m, 1) sigmoid(z2)];  % We need to add the bias unit here
-
 z3 = a2 * Theta2';
 a3 = sigmoid(z3);  % But we don't need the bias unit here
 h = a3;
 
+% Calculate the cost function
 J = sum(sum((-y_matrix.*log(h) - (1 - y_matrix).*log(1-h))/m));
 
-% Add the regularization component
+% Add the regularization component of the cost function
 theta_r = sum(sum(Theta1(:, 2:end).^2)) + sum(sum(Theta2(:, 2:end).^2));
 J = J + (lambda*theta_r)/(2*m);
+
+% Calculate deltas
+d3 = a3 - y_matrix;
+d2 = d3 * (Theta2(:, 2:end)) .* sigmoidGradient(z2);
+Delta1 = d2' * a1;
+Delta2 = d3' * a2;
+Theta1_grad = Delta1/m;
+Theta2_grad = Delta2/m;
+
 % -------------------------------------------------------------
 
 % =========================================================================
