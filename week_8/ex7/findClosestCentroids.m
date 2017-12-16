@@ -20,13 +20,19 @@ idx = zeros(size(X,1), 1);
 %
 % Note: You can use a for-loop over the examples to compute this.
 %
+% Create an m x k distance matrix
+Distances = zeros(size(X,1), K);
 
+% Loop over each centroid
+for i=1:K
+    % Set each distance matrix column i to the square diff of the samples
+    % from the i'th centroid
+    D = X - centroids(i,:);
+    Distances(:,i) = sum(D.^2, 2);
+end
 
-
-
-
-
-
+% Find the minimum index of each row
+[~, idx] = min(Distances,[],2);
 % =============================================================
 
 end
