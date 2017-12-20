@@ -44,8 +44,15 @@ RatingError = PredictedRatings - Y;
 ErrorFactor = RatingError.*R;  % Exclude unrated movies from the error
 ErrorFactorSq = ErrorFactor.^2;
 
-J = sum(ErrorFactorSq(:))/2;  % Calculate the cost function
+% Calculate the cost function
+J = sum(ErrorFactorSq(:))/2;
 
+% Add regularization
+ThetaSq = Theta .^ 2;
+XSq = X .^ 2;
+J = J + lambda*sum(ThetaSq(:))/2 + lambda*sum(XSq(:))/2;
+
+% Calculate the gradients
 X_grad = ErrorFactor*Theta;
 Theta_grad = ErrorFactor'*X;
 % =============================================================
