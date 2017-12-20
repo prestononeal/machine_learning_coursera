@@ -39,22 +39,11 @@ Theta_grad = zeros(size(Theta));
 %        Theta_grad - num_users x num_features matrix, containing the 
 %                     partial derivatives w.r.t. to each element of Theta
 %
+PredictedRatings = X*Theta';
+RatingError = PredictedRatings - Y;
+ErrorFactor = (RatingError.*R).^2;  % Exclude unrated movies from the error
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+J = sum(ErrorFactor(:))/2;  % Calculate the cost function
 % =============================================================
 
 grad = [X_grad(:); Theta_grad(:)];
