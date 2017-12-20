@@ -47,7 +47,7 @@ ErrorFactorSq = ErrorFactor.^2;
 % Calculate the cost function
 J = sum(ErrorFactorSq(:))/2;
 
-% Add regularization
+% Add cost function regularization
 ThetaSq = Theta .^ 2;
 XSq = X .^ 2;
 J = J + lambda*sum(ThetaSq(:))/2 + lambda*sum(XSq(:))/2;
@@ -55,6 +55,10 @@ J = J + lambda*sum(ThetaSq(:))/2 + lambda*sum(XSq(:))/2;
 % Calculate the gradients
 X_grad = ErrorFactor*Theta;
 Theta_grad = ErrorFactor'*X;
+
+% Add gradient regularization
+X_grad = X_grad + lambda*X;
+Theta_grad = Theta_grad + lambda*Theta;
 % =============================================================
 
 grad = [X_grad(:); Theta_grad(:)];
