@@ -41,9 +41,13 @@ Theta_grad = zeros(size(Theta));
 %
 PredictedRatings = X*Theta';
 RatingError = PredictedRatings - Y;
-ErrorFactor = (RatingError.*R).^2;  % Exclude unrated movies from the error
+ErrorFactor = RatingError.*R;  % Exclude unrated movies from the error
+ErrorFactorSq = ErrorFactor.^2;
 
-J = sum(ErrorFactor(:))/2;  % Calculate the cost function
+J = sum(ErrorFactorSq(:))/2;  % Calculate the cost function
+
+X_grad = ErrorFactor*Theta;
+Theta_grad = ErrorFactor'*X;
 % =============================================================
 
 grad = [X_grad(:); Theta_grad(:)];
